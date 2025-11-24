@@ -1,0 +1,29 @@
+Experiment a: Set up a basic React project using Create React App
+This experiment helps students set up their first React project and understand how React renders components.
+Aim:
+To create and run a basic React project using Create React App.
+Steps:
+1.	Open terminal/command prompt and navigate to desired folder (e.g., Desktop).
+2.	Run: npx create-react-app react-lab
+3.	Navigate to project folder: cd react-lab
+4.	Start project: npm start
+5.	Browser opens at http://localhost:3000 showing default React page.
+6.	Open project in VS Code: code .
+7.	Edit src/App.js with given code and save.
+8.	Browser auto-refreshes with updated content.
+
+
+Source Code:
+
+
+export default function App() {
+  return (
+<div style={{padding:20}}>
+<h1>Hello React!</h1>
+<p>Setup successful!</p>
+</div>
+  );
+}
+
+Result:
+Expected Output: AWebpage should display Hello React! Setup successful!
