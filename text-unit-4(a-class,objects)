@@ -1,0 +1,69 @@
+Experiment (a): Create a Java Console App Demonstrating Classes, Objects, and Methods
+This experiment introduces the basic principles of Java programming. Students will understand how to define classes, create objects, and use methods to perform operations. These concepts form the foundation for developing advanced Java and web applications.
+Aim:
+To create a Java console application demonstrating the use of classes, objects, and methods.
+Tools Required:
+• JDK (Java Development Kit) – https://www.oracle.com/java/technologies/javase-downloads.html
+• IDE or text editor (Eclipse/IntelliJ IDEA/VS Code)
+• Command prompt or terminal for execution
+
+
+Procedure:
+1. Install JDK and configure environment variables (JAVA_HOME and PATH).
+2. Create a new folder named JavaBasics on your computer.
+3. Open a text editor or IDE and create a new Java file named StudentDemo.java.
+4. Write a class Student with data members (name, age) and methods (setDetails(), displayDetails()).
+5. In the main method, create objects of the Student class and call its methods to display details.
+6. Compile the Java program using the command: javac StudentDemo.java.
+7. Run the program using the command: java StudentDemo.
+8. Observe and verify the output in the console.
+
+
+Source Code:
+// File: StudentDemo.java
+
+class Student {
+    String name;
+    int age;
+
+    // Method to set student details
+    void setDetails(String n, int a) {
+        name = n;
+        age = a;
+    }
+
+    // Method to display student details
+    void displayDetails() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+}
+
+public class StudentDemo {
+    public static void main(String[] args) {
+        // Create objects of Student class
+        Student s1 = new Student();
+        Student s2 = new Student();
+
+        // Set and display details
+        s1.setDetails("Praneel", 22);
+        s2.setDetails("Uday", 23);
+
+        s1.displayDetails();
+        s2.displayDetails();
+    }
+}
+
+
+Explanation:
+• A class named Student is defined with two fields: name and age.
+• The method setDetails() initializes the values for these fields.
+• The displayDetails() method prints the student’s name and age to the console.
+• Two Student objects (s1, s2) are created and methods are called to demonstrate object-oriented behavior.
+• The main method is the entry point of the program.
+
+
+Expected Output:
+Name: Praneel, Age: 22
+Name: Uday, Age: 23
+Result:
+The Java console application demonstrating classes, objects, and methods was successfully executed. The experiment helped students understand how objects interact with methods within a class.
