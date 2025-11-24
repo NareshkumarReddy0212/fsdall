@@ -1,0 +1,30 @@
+Experiment 5(e): Deploy a Full Stack Application on a Cloud Platform
+Aim
+To deploy a Spring Boot web application on cloud platforms like Heroku, AWS Elastic Beanstalk, or GitHub Pages.
+Theory
+Cloud deployment allows applications to be hosted online for access by users worldwide.
+
+
+Procedure / Steps
+
+1.	Install Git and Heroku CLI on your system.
+2.	Login to Heroku using: heroku login.
+3.	Create a new app: heroku create your-app-name.
+4.	Add a Procfile specifying how to run the app.
+5.	Commit code and push to Heroku using Git.
+6.	For AWS: Package JAR and upload using Elastic Beanstalk console.
+7.	For static React frontend: Build project and deploy to GitHub Pages.
+
+
+Source Code / SQL Commands:
+
+web: java -jar target/SpringApp-0.0.1-SNAPSHOT.jar
+git add .
+git commit -m "deploy"
+git push heroku main
+
+
+Expected Output
+Application should be accessible through a public URL hosted on the chosen cloud platform.
+Result
+Full stack application was successfully deployed to a cloud environment.
