@@ -1,0 +1,95 @@
+Experiment 3e
+Title:Fetch and Render Data from a Public API using Axios in React JS
+Aim: To develop a React JS application that fetches data from a public REST API using Axios and displays the data dynamically using React components.
+Description: React JS is a component-based JavaScript library for building user interfaces.Each part of the UI (like a table, list, or form) is built as a component that can be reused.
+1.	Component: A reusable piece of UI written as a JavaScript function that returns JSX.
+2.	useState: React Hook used to create and manage state (data).
+3.	useEffect: React Hook used to perform side effects (like API calls).
+4.	Axios: A promise-based HTTP client used to fetch data from APIs.
+Procedure:
+1.	Create a React App (same as experiment 3c and 3d)
+npx create-react-app fetch-api-demo
+cd fetch-api-demo
+2.	Install Axios
+npm install axios in VS Code.
+3.	Create and Edit Components
+a.	Open src/App.js → main component
+b.	Create a new file src/UserList.js → child component to display data
+(After this just paste the code 4,5,6 step will happen automatically)
+4.	Use useEffect() to call the API when the component loads.
+5.	Use useState() to store and manage the fetched data.
+6.	Render the fetched data inside the UserList component.
+7.	Run the application: npm start
+8.	Observe the output in your browser at http://localhost:3000
+
+
+Source Code:
+
+src/App.js
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import UserList from "./UserList"; // Import child component
+
+function App() {
+const [users, setUsers] = useState([]); // State to store API data
+
+  // useEffect to fetch data when component mounts
+useEffect(() => {
+axios
+.get("https://jsonplaceholder.typicode.com/users")
+.then((response) => {
+setUsers(response.data); // Store API data in state
+      })
+.catch((error) => {
+console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  return (
+<div style={{ padding: "20px", fontFamily: "Arial" }}>
+<h1>User Information</h1>
+      {/* Pass data to child component */}
+<UserList users={users} />
+</div>
+  );
+}
+
+export default App;
+
+
+src/UserList.js:
+
+import React from "react";
+
+function UserList({ users }) {
+  return (
+<div>
+<h2>Fetched Users</h2>
+<table border="1" cellPadding="10" cellSpacing="0" style={{ width: "100%" }}>
+<thead style={{ backgroundColor: "#f2f2f2" }}>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+          {users.map((user) => (
+<tr key={user.id}>
+<td>{user.id}</td>
+<td>{user.name}</td>
+<td>{user.email}</td>
+<td>{user.address.city}</td>
+</tr>
+          ))}
+</tbody>
+</table>
+</div>
+  );
+}
+
+export default UserList;
+Result
+The React application successfully fetched and displayed user data from the public API using Axios.The output displayed a dynamic table containing User ID, Name, Email, and City.
+
