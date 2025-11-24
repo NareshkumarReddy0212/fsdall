@@ -1,0 +1,108 @@
+Experiment (c): Create and Manage Form Data using React State and Hooks
+Forms are an essential part of web applications, allowing users to input and submit data. In React, forms are implemented using controlled components, where the value of each input field is managed via React state. This experiment demonstrates how to create a simple registration form that captures user input (name and email) using the useState hook and displays it using an alert message on submission.
+Aim:
+To handle form inputs and submission using React state and hooks.
+Tools Required:
+• Node.js (LTS version) – https://nodejs.org/
+• Visual Studio Code – https://code.visualstudio.com/
+• Web browser (Google Chrome recommended)
+Pre-requisites:
+Before starting this experiment, ensure that Node.js is installed and a React project is already created using the following commands:
+
+npx create-react-app statehooks
+cd react-lab
+npm start
+
+The application should successfully run on http://localhost:3000 showing the default React page.
+Procedure:
+1. Open the React project folder in Visual Studio Code using the command: code .
+2. Inside the src directory, create a new folder named components.
+3. Within the components folder, create a new file named RegistrationForm.js.
+4. Import React and useState hook at the top of RegistrationForm.js using: import React, { useState } from 'react';
+5. Declare a state variable to hold the name and email values using useState.
+6. Create a function handleChange(e) that updates the state as the user types in the input fields.
+7. Create a function handleSubmit(e) that prevents page reload (using e.preventDefault()) and displays the entered data using an alert.
+8. Add input fields for name and email, bind their values to the state, and handle changes with onChange.
+9. Add a submit button to trigger the handleSubmit function.
+10. Import and render the RegistrationForm component inside App.js.
+
+Source Code:
+
+RegistrationForm.js:
+import React, { useState } from "react";
+
+export default function RegistrationForm() {
+  const [form, setForm] = useState({ name: "", email: "" });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert(`Name: ${form.name}\nEmail: ${form.email}`);
+  }
+
+  return (
+<div style={{ padding: 20 }}>
+<h2>Registration Form</h2>
+<form onSubmit={handleSubmit}>
+<label>
+          Name:{" "}
+<input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Enter your name"
+            required
+          />
+</label>
+<br /><br />
+<label>
+          Email:{" "}
+<input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            required
+          />
+</label>
+<br /><br />
+<button type="submit">Submit</button>
+</form>
+</div>
+  );
+}
+
+App.js:
+
+import React from "react";
+import RegistrationForm from "./components/RegistrationForm";
+
+export default function App() {
+  return (
+<div>
+<h1>React Form Example</h1>
+<RegistrationForm />
+</div>
+  );
+}
+
+Explanation:
+• The useState hook is used to manage form data dynamically.
+• handleChange() updates the state whenever the user types in the input field.
+• handleSubmit() prevents page reload using e.preventDefault() and displays an alert with entered values.
+• The form inputs are 'controlled components', meaning their values are directly bound to the React state.
+• The component is imported into App.js and rendered as a child component.
+Expected Output:
+When the user enters their name and email in the form and clicks Submit, an alert box will appear displaying the entered details.
+
+Example:
+Name: Praneel Kumar
+Email: praneel@example.com
+Result:
+The form was successfully created using React. The input values were managed using the useState hook, and form submission was handled dynamically without reloading the page.
