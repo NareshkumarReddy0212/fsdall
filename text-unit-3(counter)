@@ -1,0 +1,107 @@
+Experiment (d): Use Redux to Manage State in a Counter App
+Redux provides a centralized way to manage and update state in React applications. It is particularly useful when multiple components share or depend on the same state. In this experiment, students will create a simple counter application using Redux Toolkit and React Redux to understand the principles of state management.
+Aim:
+To use Redux Toolkit and React Redux to implement a counter app.
+Tools Required:
+• Node.js (LTS version) – https://nodejs.org/
+• Visual Studio Code – https://code.visualstudio.com/
+• Web browser (Google Chrome recommended)
+Procedure:
+1. Install Redux Toolkit and React Redux using the command:
+   npm install @reduxjs/toolkit react-redux
+2. Inside the src directory, create a new folder named store to organize Redux files.
+3. Create src/store/counterSlice.js to define reducers for increment, decrement, and reset actions using createSlice().
+4. Create src/store/store.js and configure the Redux store with the counter reducer.
+5. In src/index.js, wrap the App component with the Provider component from react-redux and pass the store to it.
+6. Create src/components/Counter.js to connect React components with Redux using useSelector and useDispatch hooks.
+7. Render the Counter component in App.js and verify that all buttons work correctly.
+
+
+Source Code:
+
+counterSlice.js:
+
+import { createSlice } from "@reduxjs/toolkit";
+
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: { value: 0 },
+  reducers: {
+    increment: (state) => { state.value += 1; },
+    decrement: (state) => { state.value -= 1; },
+    reset: (state) => { state.value = 0; }
+  }
+});
+
+export const { increment, decrement, reset } = counterSlice.actions;
+export default counterSlice.reducer;
+store.js:
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./counterSlice";
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer
+  }
+});
+
+index.js:
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+<Provider store={store}>
+<App />
+</Provider>
+);
+
+Counter.js:
+
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement, reset } from "../store/counterSlice";
+
+export default function Counter() {
+  const value = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  return (
+<div style={{ padding: 20 }}>
+<h2>Redux Counter Example</h2>
+<h3>Counter Value: {value}</h3>
+<button onClick={() => dispatch(increment())}>+1</button>{" "}
+<button onClick={() => dispatch(decrement())}>-1</button>{" "}
+<button onClick={() => dispatch(reset())}>Reset</button>
+</div>
+  );
+}
+
+App.js:
+
+import React from "react";
+import Counter from "./components/Counter";
+
+export default function App() {
+  return (
+<div>
+<h1>React + Redux Counter Application</h1>
+<Counter />
+</div>
+  );
+}
+Explanation:
+• Redux Toolkit's createSlice() simplifies the process of creating reducers and actions in one place.
+• The configureStore() method creates a centralized store that holds the entire app’s state.
+• The Provider component from react-redux makes the store available to all React components.
+• useSelector() reads data from the Redux store.
+• useDispatch() sends actions to update the store.
+• The counter's value is globally managed, allowing consistent updates across components.
+Expected Output:
+The counter app displays a number (initially 0) along with three buttons: +1, -1, and Reset. Clicking '+1' increments the count, '-1' decrements it, and 'Reset' sets the count back to 0. The state is managed centrally in the Redux store and updates reflect immediately on the UI.
+Result:
+The counter application was successfully implemented using Redux Toolkit and React Redux. The experiment demonstrates how to manage global application state, dispatch actions, and subscribe to store updates in React.
