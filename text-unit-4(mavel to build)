@@ -1,0 +1,98 @@
+Experiment (e): Use Maven to Build, Package, and Run the Spring Boot Application
+This experiment demonstrates how to use Apache Maven to build, package, and execute a Spring Boot application. Maven automates the build lifecycle and manages dependencies, ensuring consistent and reproducible project builds.
+Aim:
+To use Maven to build, package, and run a Spring Boot application efficiently with dependency management and build automation.
+Tools Required:
+• JDK 17 or later – https://www.oracle.com/java/technologies/javase-downloads.html
+• Apache Maven – https://maven.apache.org/download.cgi
+• Spring Boot – https://start.spring.io/
+• IDE – IntelliJ IDEA / Eclipse / Spring Tool Suite (STS)
+• Command Line / Terminal – for Maven commands
+Theory:
+Maven is a powerful build automation tool for Java projects. It uses a Project Object Model (POM) defined in the pom.xml file to manage dependencies, build processes, and packaging. Maven provides lifecycle phases such as clean, compile, package, install, and deploy.
+
+Key Maven lifecycle phases:
+• clean – Removes previous build files
+• compile – Compiles Java source code
+• package – Packages the compiled code into a JAR/WAR
+• install – Installs the package into the local repository
+• deploy – Deploys the package to a remote repository
+
+In Spring Boot, Maven also manages framework dependencies and can directly run applications using 'mvn spring-boot:run'.
+
+
+Procedure:
+1. Open https://start.spring.io/ and create a new Maven project.
+2. Choose Java as the language, select Spring Boot 3.x or higher, and add the dependency 'Spring Web'.
+3. Click 'Generate' to download the project ZIP, then extract and open it in your IDE.
+4. Observe the folder structure of the generated project.
+5. Edit the pom.xml file to verify Spring Boot dependencies are included.
+6. Create a controller class 'HelloController.java' in the package 'com.example.demo.controller'.
+7. Run Maven commands in terminal: clean, compile, package, and spring-boot:run.
+8. Navigate to the target folder to find the packaged JAR file.
+9. Execute the JAR file using 'java -jar target/demo-0.0.1-SNAPSHOT.jar'.
+10. Open http://localhost:8080 in a web browser to see the output.
+Project Folder Structure:
+myapp/
+┣ src/
+┃ ┣ main/
+┃ ┃ ┣ java/ → Java source code
+┃ ┃ ┗ resources/ → configuration and static files
+┣ pom.xml → Maven project configuration
+
+Sample pom.xml snippet:
+<dependencies>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+</dependencies>
+
+
+Source Code:
+
+HelloController.java:
+package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+    @GetMapping("/")
+    public String greet() {
+        return "Hello, Spring Boot with Maven!";
+    }
+}
+
+DemoApplication.java:
+
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+
+
+Common Maven Commands:
+• mvn clean – Cleans the project by deleting the target directory.
+• mvn compile – Compiles the Java source files.
+• mvn package – Packages the project into a JAR/WAR.
+• mvn spring-boot:run – Runs the Spring Boot application directly.
+
+
+Expected Output:
+When you open http://localhost:8080, the browser displays:
+Hello, Spring Boot with Maven!
+
+The terminal also shows logs such as:
+Tomcat started on port 8080
+Started DemoApplication in 2.345 seconds
+Result:
+The Spring Boot application was successfully built, packaged, and executed using Maven. Students understood the Maven lifecycle, dependency management, and executable JAR creation process.
