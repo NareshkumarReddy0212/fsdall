@@ -1,0 +1,125 @@
+Experiment (d): Connect Frontend to Spring Backend with JSON-based Communication
+This experiment demonstrates how to connect a frontend (HTML and JavaScript) to a Spring Boot backend using JSON-based communication. The goal is to fetch data from the backend REST API and render it dynamically on the webpage.
+Aim:
+To connect a simple frontend webpage with a Spring Boot backend using JSON-based communication via RESTful APIs.
+Tools Required:
+• JDK 17 or later – https://www.oracle.com/java/technologies/javase-downloads.html
+• Spring Boot – https://start.spring.io/
+• IDE – Spring Tool Suite / IntelliJ IDEA / Eclipse
+• Postman or Browser – for testing
+• HTML and JavaScript – for frontend implementation
+Theory:
+Modern web applications communicate between frontend and backend using JSON (JavaScript Object Notation). The frontend sends HTTP requests to the backend REST APIs and receives data in JSON format, which is then parsed and displayed dynamically. In this experiment, the Spring Boot backend exposes a '/students' endpoint that returns student data, and the frontend fetches and displays it.
+
+Procedure:
+1. Create a Spring Boot project using Spring Initializr with the Spring Web dependency.
+2. Create a model class 'Student' with fields id, name, and age.
+3. Create a controller class 'StudentController' to return a list of students as JSON data.
+4. Place an HTML file named 'index.html' in src/main/resources/static/.
+5. Use the JavaScript Fetch API in the HTML file to call the '/students' endpoint.
+6. Render the fetched data dynamically into an HTML table.
+7. Run the project using 'mvn spring-boot:run'.
+8. Open http://localhost:8080 in a web browser to view the output.
+
+
+Source Code:
+
+Student.java:
+package com.example.connect.model;
+
+public class Student {
+    private int id;
+    private String name;
+    private int age;
+
+    public Student() {}
+    public Student(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+}
+
+StudentController.java:
+
+package com.example.connect.controller;
+
+import com.example.connect.model.Student;
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
+
+@RestController
+public class StudentController {
+    @GetMapping("/students")
+    public List<Student> getStudents() {
+        return Arrays.asList(
+            new Student(1, "Praneel", 22),
+            new Student(2, "Uday", 23),
+            new Student(3, "Kiran", 21)
+        );
+    }
+}
+
+ConnectApplication.java:
+
+package com.example.connect;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ConnectApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ConnectApplication.class, args);
+    }
+}
+
+index.html (placed in src/main/resources/static/):
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Frontend-Backend JSON Communication</title>
+</head>
+<body>
+<h2>Student List (Fetched from Spring Boot Backend)</h2>
+<table border="1" id="studentsTable">
+<tr><th>ID</th><th>Name</th><th>Age</th></tr>
+</table>
+
+<script>
+    fetch("/students")
+      .then(response => response.json())
+      .then(data => {
+        const table = document.getElementById("studentsTable");
+        data.forEach(student => {
+          const row = table.insertRow();
+          row.insertCell(0).innerText = student.id;
+          row.insertCell(1).innerText = student.name;
+          row.insertCell(2).innerText = student.age;
+        });
+      })
+      .catch(err => console.error("Error fetching data:", err));
+</script>
+</body>
+</html>
+
+Expected Output:
+When the Spring Boot application runs and the URL http://localhost:8080 is opened in the browser, a webpage displays a table listing student details fetched from the backend REST API.
+Example Output:
+
+ID | Name | Age
+-----------------
+1 | Praneel | 22
+2 | Uday | 23
+3 | Kiran | 21
+Result:
+The frontend was successfully connected to the Spring Boot backend using JSON-based communication. The webpage dynamically fetched and displayed student data from the backend REST API.
