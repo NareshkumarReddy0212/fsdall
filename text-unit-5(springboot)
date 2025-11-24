@@ -1,0 +1,31 @@
+Experiment 5(c): Integrate MySQL with Spring Boot using Spring JDBC
+Aim
+To integrate a MySQL database with a Spring Boot application using Spring JDBC for performing CRUD operations.
+Theory
+Spring JDBC provides a simplified approach to interact with databases using JdbcTemplate.
+
+
+Procedure / Steps
+
+1.	Install JDK, Spring Tool Suite (STS), and MySQL Server.
+2.	Open STS → New → Spring Starter Project.
+3.	Add dependencies: Spring Web, Spring JDBC, MySQL Driver.
+4.	Configure MySQL credentials in application.properties.
+5.	Create Student model class with required fields and getters/setters.
+6.	Create DAO class using JdbcTemplate for database interaction.
+7.	Create REST controller to expose endpoints for CRUD operations.
+8.	Run the Spring Boot application and test endpoints in Postman.
+
+
+Source Code / SQL Commands
+
+spring.datasource.url=jdbc:mysql://localhost:3306/college
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+
+Expected Output
+Application should connect successfully to MySQL and allow data insertion, retrieval, update, and deletion through REST endpoints.
+Result
+Spring Boot application successfully connected to MySQL using Spring JDBC and performed CRUD operations.
