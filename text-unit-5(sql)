@@ -1,0 +1,108 @@
+
+C:\Users\think>sqlplus
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Nov 24 06:03:30 2025
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: System
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Enter user-name: System
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Enter user-name: system
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus
+
+C:\Users\think>sqlplus
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Nov 24 06:04:45 2025
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+ERROR:
+ORA-28002: the password will expire within 7 days
+
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> create table pavan(ID varchar(20) primary key,name varchar(20));
+
+Table created.
+
+
+SQL> create table naresh(age varchar(20),id varchar(20),foreign key(id) references pavan(ID));
+
+Table created.
+
+SQL> insert into pavan values(1,'A');
+
+1 row created.
+
+SQL> insert into pavan values(2,'B');
+
+1 row created.
+
+SQL> insert into naresh values(25,1);
+
+1 row created.
+
+SQL> insert into naresh values(30,2);
+
+1 row created.
+
+SQL> select * from pavan;
+
+ID                   NAME
+-------------------- --------------------
+1                    A
+2                    B
+
+SQL> select * from naresh;
+
+AGE                  ID
+-------------------- --------------------
+25                   1
+30                   2
+
+SQL> update naresh set age=27 where id =27;
+
+0 rows updated.
+
+SQL> update naresh set age=27 where id =2;
+
+1 row updated.
+
+SQL> select * from naresh;
+
+AGE                  ID
+-------------------- --------------------
+25                   1
+27                   2
+
+SQL> delete from naresh where id=2;
+
+1 row deleted.
+
+SQL> select * from naresh;
+
+AGE                  ID
+-------------------- --------------------
+25                   1
+
+SQL>
