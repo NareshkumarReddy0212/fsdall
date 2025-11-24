@@ -1,0 +1,133 @@
+Experiment (c): Develop RESTful Web Services using Spring Boot (CRUD Operations)
+This experiment demonstrates how to develop RESTful web services using the Spring Boot framework. Students will learn how to implement Create, Read, Update, and Delete (CRUD) operations and test them using Postman. Spring Boot simplifies REST API development by providing embedded servers, automatic configuration, and dependency management.
+Aim:
+To develop and test RESTful web services using the Spring Boot framework, implementing Create, Read, Update, and Delete (CRUD) operations.
+Tools Required:
+• JDK 17 or later – https://www.oracle.com/java/technologies/javase-downloads.html
+• Spring Boot – via Spring Initializr
+• IDE – IntelliJ IDEA / Eclipse / Spring Tool Suite (STS)
+• Postman – https://www.postman.com/downloads/
+• Maven – for build and dependency management
+Theory:
+REST (Representational State Transfer) is an architectural style for building APIs using HTTP methods. Each method corresponds to a CRUD operation:
+
+• GET – Retrieve data
+• POST – Create new data
+• PUT – Update existing data
+• DELETE – Remove data
+
+Spring Boot provides annotations like @RestController, @GetMapping, @PostMapping, @PutMapping, and @DeleteMapping to quickly create RESTful services. JSON is used as the standard data exchange format.
+
+
+Procedure:
+1. Open https://start.spring.io/ (Spring Initializr).
+2. Select Maven Project, Java language, and Spring Boot version 3.x or higher.
+3. Add the dependency: Spring Web.
+4. Click Generate to download the project, then extract and open it in your IDE.
+5. Create packages: model, controller.
+6. Create a model class Student.java in the model package.
+7. Create a controller class StudentController.java in the controller package with CRUD mappings.
+8. Run the application using the command: mvn spring-boot:run.
+9. Test API endpoints using Postman for GET, POST, PUT, and DELETE requests.
+
+
+Source Code:
+
+Student.java:
+package com.example.restapi.model;
+
+public class Student {
+    private int id;
+    private String name;
+    private int age;
+
+    public Student() {}
+
+    public Student(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+}
+
+StudentController.java:
+
+package com.example.restapi.controller;
+
+import com.example.restapi.model.Student;
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
+
+@RestController
+@RequestMapping("/students")
+public class StudentController {
+    private List<Student> students = new ArrayList<>(Arrays.asList(
+        new Student(1, "Praneel", 22),
+        new Student(2, "Uday", 23)
+    ));
+
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return students;
+    }
+
+    @PostMapping
+    public Student addStudent(@RequestBody Student s) {
+        students.add(s);
+        return s;
+    }
+
+    @PutMapping("/{id}")
+    public Student updateStudent(@PathVariable int id, @RequestBody Student s) {
+        for (Student st : students) {
+            if (st.getId() == id) {
+                st.setName(s.getName());
+                st.setAge(s.getAge());
+                return st;
+            }
+        }
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteStudent(@PathVariable int id) {
+        students.removeIf(s -> s.getId() == id);
+        return "Student with ID " + id + " deleted";
+    }
+}
+
+RestApiApplication.java:
+
+package com.example.restapi;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RestApiApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(RestApiApplication.class, args);
+    }
+}
+
+Testing in Postman:
+
+• GET → http://localhost:8080/students → Retrieves all students.
+• POST → http://localhost:8080/students → Adds a student with JSON body:
+{ "id": 3, "name": "Kiran", "age": 21 }
+• PUT → http://localhost:8080/students/1 → Updates student record.
+• DELETE → http://localhost:8080/students/2 → Deletes the student with ID 2.
+
+Expected Output:
+All CRUD operations execute successfully through REST APIs. Students can view and verify JSON responses for Create, Read, Update, and Delete actions in Postman.
+Result:
+The RESTful web service was successfully implemented using Spring Boot. Students learned how to create, update, retrieve, and delete data using RESTful APIs and verified functionality using Postman.
